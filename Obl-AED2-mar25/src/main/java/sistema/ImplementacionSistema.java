@@ -1,17 +1,20 @@
 package sistema;
 
+import dominio.Viajero;
+import dominio.abb.ABB;
+import dominio.abb.Nodo;
 import interfaz.*;
 
 public class ImplementacionSistema implements Sistema  {
+
+    private ABB<Viajero> viajeros = new ABB(new Nodo(null));
+
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
         if(maxCiudades <= 4){
             return Retorno.error1("Error en max ciudades");
         }
 
-        // esto es una prueba
-        // esta es otra prueba
-        // esta es una prueba nueva pq la anterior valio madre
         return Retorno.noImplementada();
     }
 
@@ -22,16 +25,21 @@ public class ImplementacionSistema implements Sistema  {
             return Retorno.error1("Los parametros no pueden estar vacios 02.");
         }else if(edad < 0 || edad > 139){
             return Retorno.error4("La edad del viajero tiene que estar dentro de los parametros permitidos");
+        } else if(viajeros.existe(new Viajero(cedula))){
+            return Retorno.error5("La cedula ya existe");
         }
         return Retorno.noImplementada();
     }
 
     @Override
     public Retorno buscarViajeroPorCedula(String cedula) {
-        if(cedula == null || cedula.isBlank()){
-            return Retorno.error1("La cedula es obligatoria.");
-        }
-        return Retorno.noImplementada();
+        if(cedula == null || cedula.isBlank()) return Retorno.error1("La cedula es obligatoria.");
+
+        Viajero v = viajeros.traer(new Viajero(cedula));
+
+        if(v == null) return Retorno.error3("No existe un viajero con ese cedula");
+
+        return Retorno.ok(v.toString());
     }
 
     @Override

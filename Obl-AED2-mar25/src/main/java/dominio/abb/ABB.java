@@ -56,6 +56,31 @@ public class ABB<T extends Comparable<T>>  {
 
     }
 
+    public T traer(T dato){
+        if(this.raiz == null) {
+            return null;
+        } else {
+            return traerRec(this.raiz, dato);
+        }
+    }
+
+    public T traerRec(Nodo<T>  nodo, T dato){
+        if(nodo == null) {
+            return null;
+        }
+
+        if(nodo.getDato().equals(dato)){
+            return nodo.getDato();
+        }
+
+        if(nodo.getDato().compareTo(dato) < 0){
+            return (T) traerRec(nodo.getDer(), dato);
+        } else {
+            return (T) traerRec(nodo.getIzq(), dato);
+        }
+
+    }
+
     public void mostrarDesc(){
         mostrarDesc(this.raiz);
     }
