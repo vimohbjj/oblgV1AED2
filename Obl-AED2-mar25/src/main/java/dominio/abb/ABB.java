@@ -104,6 +104,15 @@ public class ABB<T extends Comparable<T>>  {
             System.out.println(nodo.getDato().toString() + " ");
             mostrarAsc(nodo.getDer());
         }
+    }
 
+    public void mostrarPorNivel(){
+        mostrarPorNivelRec(this.raiz);
+    }
+
+    public void mostrarPorNivelRec(Nodo<T> nodo){
+        if(nodo != null){
+
+        }
     }
 }
