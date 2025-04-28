@@ -7,6 +7,7 @@ public class Viajero implements Comparable<Viajero> {
     private String Cedula;
     private String Correo;
     private Categoria Categoria;
+
     public Viajero(String cedula) {
         this.Cedula = cedula;
     }
@@ -14,8 +15,6 @@ public class Viajero implements Comparable<Viajero> {
     public String toString() {
         return Cedula + ";" + Nombre + ";" + Correo + ";" + Edad + ";" + Categoria ;
     }
-
-
 
     @Override
     public int compareTo(Viajero o) {

@@ -7,13 +7,50 @@ import interfaz.*;
 
 public class ImplementacionSistema implements Sistema  {
 
-    private ABB<Viajero> viajeros = new ABB(new Nodo(null));
+    private ABB<Viajero> viajeros;
+    private ABB<Viajero> viajerosPlatino;
+    private ABB<Viajero> viajerosFrecuente;
+    private ABB<Viajero> viajerosEstandar;
+    private ABB<Viajero> viajerosRango0;
+    private ABB<Viajero> viajerosRango1;
+    private ABB<Viajero> viajerosRango2;
+    private ABB<Viajero> viajerosRango3;
+    private ABB<Viajero> viajerosRango4;
+    private ABB<Viajero> viajerosRango5;
+    private ABB<Viajero> viajerosRango6;
+    private ABB<Viajero> viajerosRango7;
+    private ABB<Viajero> viajerosRango8;
+    private ABB<Viajero> viajerosRango9;
+    private ABB<Viajero> viajerosRango10;
+    private ABB<Viajero> viajerosRango11;
+    private ABB<Viajero> viajerosRango12;
+    private ABB<Viajero> viajerosRango13;
+    private ABB<Viajero> viajerosRango14;
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
         if(maxCiudades <= 4){
             return Retorno.error1("Error en max ciudades");
         }
+            viajeros = new ABB(new Nodo(null));
+            viajerosPlatino = new ABB(new Nodo(null));
+            viajerosFrecuente = new ABB(new Nodo(null));
+            viajerosEstandar = new ABB(new Nodo(null));
+            viajerosRango0 = new ABB(new Nodo(null));
+            viajerosRango1 = new ABB(new Nodo(null));
+            viajerosRango2 = new ABB(new Nodo(null));
+            viajerosRango3 = new ABB(new Nodo(null));
+            viajerosRango4 = new ABB(new Nodo(null));
+            viajerosRango5 = new ABB(new Nodo(null));
+            viajerosRango6 = new ABB(new Nodo(null));
+            viajerosRango7 = new ABB(new Nodo(null));
+            viajerosRango8 = new ABB(new Nodo(null));
+            viajerosRango9 = new ABB(new Nodo(null));
+            viajerosRango10 = new ABB(new Nodo(null));
+            viajerosRango11 = new ABB(new Nodo(null));
+            viajerosRango12 = new ABB(new Nodo(null));
+            viajerosRango13 = new ABB(new Nodo(null));
+            viajerosRango14 = new ABB(new Nodo(null));
 
         return Retorno.noImplementada();
     }
@@ -21,8 +58,10 @@ public class ImplementacionSistema implements Sistema  {
     @Override
     public Retorno registrarViajero(String cedula, String nombre, String correo, int edad, Categoria categoria) {
         if(cedula == null || cedula.isBlank() || nombre ==null || nombre.isBlank() || correo == null || correo.isBlank()
-                || categoria == null ){
-            return Retorno.error1("Los parametros no pueden estar vacios 02.");
+                || categoria == null ) {
+            return Retorno.error1("Los parametros no pueden estar vacios");
+        } else if(!correoValido(correo)) {
+            return Retorno.error3("El correo es invalido");
         }else if(edad < 0 || edad > 139){
             return Retorno.error4("La edad del viajero tiene que estar dentro de los parametros permitidos");
         } else if(viajeros.existe(new Viajero(cedula))){
@@ -148,22 +187,20 @@ public class ImplementacionSistema implements Sistema  {
             return false;
         }
 
-        int posArroba = 0;
-        int posPunto = 0;
+        int posArroba = -1;
+        int posPunto = -1;
 
         for (int i = 0; i < correo.length(); i++) {
             if (correo.charAt(i) == '@') {
-                posArroba = correo.charAt(i);
+                posArroba = i;
             }
             if(correo.charAt(i) == '.'){
-                posPunto = correo.charAt(i);
+                posPunto = i;
             }
         }
 
-        if(posArroba == 0 || posPunto == 0 || posArroba == correo.length() || posPunto == correo.length()){ //Para validar que el corre no arraque ni termine con @ o .
-            return false;
-        }
-        return true;
+        //Para validar que el corre no arraque ni termine con @ o
+        return posArroba > 0 && posPunto > 0 && posArroba != correo.length()-1 && posPunto != correo.length()-1;
     }
 
 }
