@@ -11,21 +11,7 @@ public class ImplementacionSistema implements Sistema  {
     private ABB<Viajero> viajerosPlatino;
     private ABB<Viajero> viajerosFrecuente;
     private ABB<Viajero> viajerosEstandar;
-    private ABB<Viajero> viajerosRango0;
-    private ABB<Viajero> viajerosRango1;
-    private ABB<Viajero> viajerosRango2;
-    private ABB<Viajero> viajerosRango3;
-    private ABB<Viajero> viajerosRango4;
-    private ABB<Viajero> viajerosRango5;
-    private ABB<Viajero> viajerosRango6;
-    private ABB<Viajero> viajerosRango7;
-    private ABB<Viajero> viajerosRango8;
-    private ABB<Viajero> viajerosRango9;
-    private ABB<Viajero> viajerosRango10;
-    private ABB<Viajero> viajerosRango11;
-    private ABB<Viajero> viajerosRango12;
-    private ABB<Viajero> viajerosRango13;
-    private ABB<Viajero> viajerosRango14;
+    private ABB<Viajero> [] viajerosRango;
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
@@ -36,23 +22,13 @@ public class ImplementacionSistema implements Sistema  {
             viajerosPlatino = new ABB(new Nodo(null));
             viajerosFrecuente = new ABB(new Nodo(null));
             viajerosEstandar = new ABB(new Nodo(null));
-            viajerosRango0 = new ABB(new Nodo(null));
-            viajerosRango1 = new ABB(new Nodo(null));
-            viajerosRango2 = new ABB(new Nodo(null));
-            viajerosRango3 = new ABB(new Nodo(null));
-            viajerosRango4 = new ABB(new Nodo(null));
-            viajerosRango5 = new ABB(new Nodo(null));
-            viajerosRango6 = new ABB(new Nodo(null));
-            viajerosRango7 = new ABB(new Nodo(null));
-            viajerosRango8 = new ABB(new Nodo(null));
-            viajerosRango9 = new ABB(new Nodo(null));
-            viajerosRango10 = new ABB(new Nodo(null));
-            viajerosRango11 = new ABB(new Nodo(null));
-            viajerosRango12 = new ABB(new Nodo(null));
-            viajerosRango13 = new ABB(new Nodo(null));
-            viajerosRango14 = new ABB(new Nodo(null));
 
-        return Retorno.noImplementada();
+            viajerosRango = new ABB[15]; //Creamos una array de 15 (por los 15 rangos)
+            for (int i = 0; i < viajerosRango.length-1; i++) {
+                viajerosRango[i] = new ABB<>(new Nodo(null));
+            }
+
+        return Retorno.ok();
     }
 
     @Override
