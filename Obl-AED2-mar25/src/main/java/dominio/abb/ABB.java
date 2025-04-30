@@ -1,10 +1,29 @@
 package dominio.abb;
 
+import java.util.Comparator;
+
 public class ABB<T extends Comparable<T>>  {
     private Nodo<T>  raiz;
+    private final Comparator<T> comparador;
+
+    public ABB(){
+        raiz = null;
+        comparador = null;
+    }
+
+    public ABB(Comparator<T> comparador){
+        raiz = null;
+        this.comparador = comparador;
+    }
 
     public ABB(Nodo<T>  raiz) {
         this.raiz = raiz;
+        this.comparador = null;
+    }
+
+    public ABB(Nodo<T>  raiz, Comparator<T> comparador) {
+        this.raiz = raiz;
+        this.comparador = comparador;
     }
 
     public void agregar(T dato) {
@@ -16,7 +35,7 @@ public class ABB<T extends Comparable<T>>  {
     }
 
     public void agregar(Nodo <T> nodo, T dato){
-        if(nodo.getDato().compareTo(dato) < 0){ // Derecha
+        if(comparar(nodo.getDato(), dato) < 0){ // Derecha
             if(nodo.getDer() == null){ // Puedo agregar?
                 nodo.setDer(new Nodo(dato));
             } else {
@@ -29,6 +48,13 @@ public class ABB<T extends Comparable<T>>  {
                 agregar(nodo.getIzq(), dato);
             }
         }
+    }
+
+    public int comparar(T dato1, T dato2){
+        if(comparador != null){
+            return comparador.compare(dato1, dato2);
+        }
+        return dato1.compareTo(dato2);
     }
 
     public boolean existe(T dato){
@@ -48,7 +74,7 @@ public class ABB<T extends Comparable<T>>  {
             return true;
         }
 
-        if(nodo.getDato().compareTo(dato) < 0){
+        if(comparar(nodo.getDato(), dato) < 0){
             return existe(nodo.getDer(), dato);
         } else {
             return existe(nodo.getIzq(), dato);
@@ -56,15 +82,15 @@ public class ABB<T extends Comparable<T>>  {
 
     }
 
-    public T traer(T dato){
+    public T obtener(T dato){
         if(this.raiz == null) {
             return null;
         } else {
-            return traerRec(this.raiz, dato);
+            return obtenerRec(this.raiz, dato);
         }
     }
 
-    public T traerRec(Nodo<T>  nodo, T dato){
+    public T obtenerRec(Nodo<T>  nodo, T dato){
         if(nodo == null) {
             return null;
         }
@@ -73,10 +99,10 @@ public class ABB<T extends Comparable<T>>  {
             return nodo.getDato();
         }
 
-        if(nodo.getDato().compareTo(dato) < 0){
-            return (T) traerRec(nodo.getDer(), dato);
+        if(comparar(nodo.getDato(), dato) < 0){
+            return (T) obtenerRec(nodo.getDer(), dato);
         } else {
-            return (T) traerRec(nodo.getIzq(), dato);
+            return (T) obtenerRec(nodo.getIzq(), dato);
         }
 
     }

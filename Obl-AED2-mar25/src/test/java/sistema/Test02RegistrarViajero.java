@@ -52,11 +52,28 @@ public class Test02RegistrarViajero {
         retorno = s.registrarViajero("1.91.4.689-5", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
 
-        retorno = s.registrarViajero("1.914.6895", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
+        retorno = s.registrarViajero("1.914.6895", "Guillermo", "guilleort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
 
-        retorno = s.registrarViajero("1914.689-5", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
+        retorno = s.registrarViajero("1914.689-5", "Guillermo", "@ort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+
+        retorno = s.registrarViajero("1914.689-5", "Guillermo", "guille", 35, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+
+        retorno = s.registrarViajero("1914.689-5", "Guillermo", "guille@orteduuy", 35, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+
+        retorno = s.registrarViajero("1914.689-5", "Guillermo", "guille@ort", 35, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+    }
+
+    @Test
+    void registrarViajeroError3() {
+        retorno = s.registrarViajero("1.914.689-5", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.OK, retorno.getResultado());
+
+
     }
 
 }
